@@ -13,5 +13,5 @@ def areaCircle(radius):
         print("Digite un numero válido")
     
 
-radius = int(input("Digite el valor de radio: "))
+radius = float(input("Digite el valor de radio: "))
 areaCircle(radius)

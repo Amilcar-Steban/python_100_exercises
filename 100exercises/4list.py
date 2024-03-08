@@ -1,7 +1,6 @@
 """
 Create list with different elements and print information
 """
-
 def getData():
     try:
         numElements = int(input("Cantidad de elementos: "))
@@ -16,7 +15,6 @@ def getData():
     except (KeyboardInterrupt, EOFError):
         print("\nEntrada interrumpida.")
         return None
-    
 
 def fillList(numElements):
             list = []
