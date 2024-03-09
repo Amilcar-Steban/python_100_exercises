@@ -14,22 +14,20 @@ def downloadYT(page_url, option):
             print("Seleccione una opción válida")
         else:
             if op == 1:
-                print("\n----------------------------------------------------------")
+                
+                cabeceraTable(False)
                 getAudio(current_folder, yt)
             else:
-                print("\n----------------------------------------------------------")
+                cabeceraTable(True)
                 getVideo(current_folder, yt)
 
 def getAudio(current_folder, yt: YouTube):
-    shown_abr = []
     itag_list = []
     
     for stream in yt.streams.filter(only_audio=True):
-        if stream.abr is not None:
-            if stream.abr not in shown_abr:
-                shown_abr.append(stream.abr)
-                itag_list.append(str(stream.itag))
-                print(f"id: {stream.itag} --> calidad: {stream.abr}")
+        if stream.abr != 'None':
+            print(f"{str(stream.itag)+" "  if len(str(stream.itag)) == 2 else stream.itag}  |  {str(stream.abr)+" " if len(str(stream.abr)) == 6  else stream.abr}   |   {stream.mime_type[6:]}")
+            itag_list.append(str(stream.itag))
     itag = input("\nid: ")
     if not any(itag == item for item in itag_list) or not itag:
         print("Valor no encontrado")
@@ -41,24 +39,24 @@ def getAudio(current_folder, yt: YouTube):
         print("\nDescarga exitosa!\n")
 
 def getVideo(current_folder, yt:YouTube):
-    
-    shown_resolutions = []
     itag_list = []
-    
-    for stream in yt.streams.filter(progressive=True):
+    for stream in yt.streams.filter():
         if stream.resolution is not None:
-            if stream.resolution not in shown_resolutions:
-                shown_resolutions.append(stream.resolution)
-                itag_list.append(str(stream.itag))
-                print(f"id: {stream.itag} --> Resolución: {stream.resolution}")
-                
+            print(f"{str(stream.itag)+" "  if len(str(stream.itag)) == 2 else stream.itag}  |   {str(stream.resolution)+" " if len(str(stream.resolution)) == 4  else stream.resolution}    |    {stream.fps}   |    {stream.mime_type[6:]}")
+            itag_list.append(str(stream.itag))
     itag = input("\nid: ")
     if not any(itag == item for item in itag_list) or not itag:
         print("Valor no encontrado")
     else:
         video = yt.streams.get_by_itag(itag)
         video.download(output_path=current_folder)
-        print("\nDescarga exitosa!\n")
+
+def cabeceraTable(boo:bool):
+    cabecera = ""
+    if boo == True:
+        print("\nID     Resolución      FPS       Tipo\n-----------------------------------------")
+    else:
+        print("\nID      Calidad      Tipo\n----------------------------------")
 
 url = input("Url: ")
 option = int(input("Seleccione \n1. Audio\n2. Video\n\n opción: "))
