@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 
 face_cascade = cv2.CascadeClassifier(
-    "./python_100_exercises/recursos/frontalface_default.xml"
+    "./python_100_exercises/recursos/eye.xml"
 )
 
 capture = cv2.VideoCapture(0)

@@ -40,7 +40,7 @@ def getAudio(current_folder, yt: YouTube):
 
 def getVideo(current_folder, yt:YouTube):
     itag_list = []
-    for stream in yt.streams.filter():
+    for stream in yt.streams.filter(progressive=True):
         if stream.resolution is not None:
             print(f"{str(stream.itag)+" "  if len(str(stream.itag)) == 2 else stream.itag}  |   {str(stream.resolution)+" " if len(str(stream.resolution)) == 4  else stream.resolution}    |    {stream.fps}   |    {stream.mime_type[6:]}")
             itag_list.append(str(stream.itag))
